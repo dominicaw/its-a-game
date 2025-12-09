@@ -9,43 +9,66 @@ kaplay({
   plugins: [crew],
 })
 
-loadRoot('./') // A good idea for Itch.io publishing later
-loadCrew('sprite', 'bean')
-loadCrew('sprite', 'gigagantrum')
+loadRoot('./')
 
-const enemy = add([
-  pos(120, 80),
-  sprite('gigagantrum'),
-  area(),
-  body(),
-  'enemy',
-])
+scene('menu', () => {
+  add([
+    pos(24, 24),
+    text('hej', {
+      size: 48,
+      width: 320,
+      font: 'sans-serif',
+    }),
+  ])
 
-const player = add([
-  sprite('bean'),
-  pos(10, 20),
-  area(),
-  body(),
-  health(8),
-  'player',
-])
+  loadCrew('sprite', 'play')
+  loadCrew('sound', 'mark_voice')
 
-const movements = [
-  ['right', 200, 0],
-  ['left', -200, 0],
-  ['up', 0, -200],
-  ['down', 0, 200],
-]
+  const playButton = add([sprite('play'), pos(100, 100)])
 
-movements.forEach(([key, x, y]) => {
-  onKeyDown(key, () => player.move(x, y))
+  playButton.onClick(go('nonsense'))
 })
 
-player.onCollide('enemy', () => {
-  player.hurt(1)
-  shake(5)
-  flash('#cc425e', 0.2)
-  addKaboom(player.worldPos())
-})
+go('menu')
 
-onClick(() => addKaboom(mousePos()))
+scene('nonsense', () => {
+  loadCrew('sprite', 'bean')
+  loadCrew('sprite', 'gigagantrum')
+
+  const enemy = add([
+    pos(120, 80),
+    sprite('gigagantrum'),
+    area(),
+    body(),
+    'enemy',
+  ])
+
+  const player = add([
+    sprite('bean'),
+    pos(10, 20),
+    area(),
+    body(),
+    health(8),
+    'player',
+  ])
+
+  const movements = [
+    ['right', 200, 0],
+    ['left', -200, 0],
+    ['up', 0, -200],
+    ['down', 0, 200],
+  ]
+
+  movements.forEach(([key, x, y]) => {
+    onKeyDown(key, () => player.move(x, y))
+  })
+
+  player.onCollide('enemy', () => {
+    player.hurt(1)
+    shake(5)
+    flash('#cc425e', 0.2)
+    addKaboom(player.worldPos())
+  })
+
+  onClick(() => addKaboom(mousePos()))
+})
