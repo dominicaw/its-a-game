@@ -1,6 +1,7 @@
 import kaplay from 'kaplay'
 import { crew } from '@kaplayjs/crew'
 import 'kaplay/global'
+import addButton from './utils/addButton'
 
 kaplay({
   background: '#d46eb3',
@@ -15,40 +16,6 @@ scene('menu', () => {
   loadCrew('sprite', 'play')
   loadCrew('sound', 'mark_voice')
 
-  function addButton(
-    txt = 'start game',
-    p = vec2(200, 100),
-    f = () => debug.log('hello')
-  ) {
-    const btn = add([
-      rect(240, 80, { radius: 8 }),
-      pos(p),
-      area(),
-      scale(1),
-      anchor('center'),
-      outline(4),
-      color(255, 255, 255),
-    ])
-
-    btn.add([text(txt), anchor('center'), color(0, 0, 0)])
-
-    btn.onHoverUpdate(() => {
-      const t = time() * 10
-      btn.color = hsl2rgb((t / 10) % 1, 0.6, 0.7)
-      btn.scale = vec2(1.2)
-      setCursor('pointer')
-    })
-
-    btn.onHoverEnd(() => {
-      btn.scale = vec2(1)
-      btn.color = rgb()
-    })
-
-    btn.onClick(f)
-
-    return btn
-  }
-
   addButton('Start', vec2(200, 100), () => {
     play('mark_voice'), go('nonsense')
   })
@@ -57,20 +24,16 @@ scene('menu', () => {
   })
 })
 
-go('menu')
+onLoad(() => {
+  go('menu')
+})
 
 scene('nonsense', () => {
   loadCrew('sprite', 'bean')
   loadCrew('sprite', 'gigagantrum')
   loadCrew('sound', 'bean_voice')
 
-  const enemy = add([
-    pos(120, 80),
-    sprite('gigagantrum'),
-    area(),
-    body(),
-    'enemy',
-  ])
+  add([pos(120, 80), sprite('gigagantrum'), area(), body(), 'enemy'])
 
   const player = add([
     sprite('bean'),
@@ -83,9 +46,13 @@ scene('nonsense', () => {
 
   const movements = [
     ['right', 200, 0],
+    ['d', 200, 0],
     ['left', -200, 0],
+    ['a', -200, 0],
     ['up', 0, -200],
+    ['s', 0, -200],
     ['down', 0, 200],
+    ['w', 0, 200],
   ]
 
   movements.forEach(([key, x, y]) => {
