@@ -12,7 +12,7 @@ scene('menu', () => {
     anchor('center'),
   ])
 
-  addButton('Start', centerCoords, () => {
-    play('mark_voice'), go('game')
+  addButton('Start', centerCoords, 'center', () => {
+    go('name')
   })
 })
