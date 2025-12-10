@@ -5,7 +5,7 @@ import addButton from './utils/addButton'
 import colors from './utils/colors'
 
 kaplay({
-  background: colors.PURPLE_DARK,
+  background: colors.PURPLE_DARKEST,
   scale: 1,
   canvas: document.getElementById('game'),
   plugins: [crew],
