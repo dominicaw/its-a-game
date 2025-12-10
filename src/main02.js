@@ -2,31 +2,25 @@ import kaplay from 'kaplay'
 import { crew } from '@kaplayjs/crew'
 import 'kaplay/global'
 import addButton from './utils/addButton'
-import colors from './utils/colors'
 
 kaplay({
-  background: colors.PURPLE_DARK,
+  background: '#d46eb3',
   scale: 1,
-  canvas: document.getElementById('game'),
+  canvas: document.getElementById('canvas'),
   plugins: [crew],
-  font: 'sans-serif',
 })
 
 loadRoot('./')
-const centerCoords = center()
 
 scene('menu', () => {
-  loadCrew('sprite', 'mark')
+  loadCrew('sprite', 'play')
   loadCrew('sound', 'mark_voice')
 
-  add([
-    sprite('mark'),
-    pos(centerCoords.x, centerCoords.y - 100),
-    anchor('center'),
-  ])
-
-  addButton('Start', centerCoords, () => {
+  addButton('Start', vec2(200, 100), () => {
     play('mark_voice'), go('nonsense')
+  })
+  addButton('Quit', vec2(200, 200), () => {
+    play('mark_voice')
   })
 })
 

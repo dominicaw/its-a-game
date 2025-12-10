@@ -1,6 +1,6 @@
 export default function addButton(
   txt = 'start game',
-  p = vec2(200, 100),
+  p = center(),
   f = () => debug.log('hello')
 ) {
   const btn = add([
@@ -16,8 +16,8 @@ export default function addButton(
   btn.add([text(txt), anchor('center'), color(0, 0, 0)])
 
   btn.onHoverUpdate(() => {
-    const t = time() * 10
-    btn.color = hsl2rgb((t / 10) % 1, 0.6, 0.7)
+    // const t = time() * 10
+    // btn.color = hsl2rgb((t / 10) % 1, 0.6, 0.7)
     btn.scale = vec2(1.2)
     setCursor('pointer')
   })
@@ -25,6 +25,7 @@ export default function addButton(
   btn.onHoverEnd(() => {
     btn.scale = vec2(1)
     btn.color = rgb()
+    setCursor('inherit')
   })
 
   btn.onClick(f)
