@@ -1,18 +1,10 @@
+import k from '../kaplay'
 import addButton from '../utils/addButton'
 
-scene('menu', () => {
-  loadCrew('sprite', 'mark')
-  loadCrew('sound', 'mark_voice')
-
-  const centerCoords = center()
-
-  add([
-    sprite('mark'),
-    pos(centerCoords.x, centerCoords.y - 100),
-    anchor('center'),
-  ])
+k.scene('menu', () => {
+  const centerCoords = k.center()
 
   addButton('Start', centerCoords, 'center', () => {
-    go('name')
+    k.go('name')
   })
 })

@@ -1,46 +1,35 @@
+import k from '../kaplay'
 import addButton from '../utils/addButton'
 import fortunes from '../data/options'
 
-scene('name', () => {
-  const centerCoords = center()
+k.scene('name', () => {
+  const centerCoords = k.center()
 
-  add([
-    sprite('mark'),
-    pos(centerCoords.x, centerCoords.y - 100),
-    anchor('center'),
+  const name = k.add([
+    k.text('what is your name?'),
+    k.pos(centerCoords),
+    k.anchor('center'),
   ])
 
-  const name = add([
-    text('what is your name?'),
-    pos(centerCoords),
-    anchor('center'),
+  const username = k.add([
+    k.text(''),
+    k.textInput(true, 20),
+    k.pos(centerCoords.x, centerCoords.y + 100),
+    k.anchor('center'),
   ])
 
-  const username = add([
-    text(''),
-    textInput(true, 20),
-    pos(centerCoords.x, centerCoords.y + 100),
-    anchor('center'),
-  ])
-
-  onKeyPress('enter', () => {
-    go('categorySelect', username)
+  k.onKeyPress('enter', () => {
+    k.go('categorySelect', username)
   })
 })
 
-scene('categorySelect', (name) => {
-  const centerCoords = center()
+k.scene('categorySelect', (name) => {
+  const centerCoords = k.center()
 
-  add([
-    sprite('mark'),
-    pos(centerCoords.x, centerCoords.y - 100),
-    anchor('center'),
-  ])
-
-  add([
-    text(`${name.text}, what are you seeking?`),
-    pos(centerCoords.x, centerCoords.y - 20),
-    anchor('center'),
+  k.add([
+    k.text(`${name.text}, what are you seeking?`),
+    k.pos(centerCoords.x, centerCoords.y - 20),
+    k.anchor('center'),
   ])
 
   // Create buttons for the four categories
@@ -51,30 +40,23 @@ scene('categorySelect', (name) => {
     const yPos = centerCoords.y + 40 + index * buttonSpacing
 
     addButton(category, (centerCoords.x, yPos), 'center', () => {
-      go(category, name)
+      k.go(category, name)
     })
   })
 })
 
 // Create scenes for each category
-scene('love', (name) => {
-  loadCrew('sprite', 'bean')
-  const centerCoords = center()
-
-  add([
-    sprite('mark'),
-    pos(centerCoords.x, centerCoords.y - 100),
-    anchor('center'),
-  ])
+k.scene('love', (name) => {
+  const centerCoords = k.center()
 
   // Randomly select one of the two followUpQuestions
   const questions = fortunes.categories.love.followUpQuestions
   const randomQuestion = questions[Math.floor(Math.random() * questions.length)]
 
-  add([
-    text(randomQuestion.question.replace('{NAME}', name.text)),
-    pos(centerCoords.x, centerCoords.y - 20),
-    anchor('center'),
+  k.add([
+    k.text(randomQuestion.question.replace('{NAME}', name.text)),
+    k.pos(centerCoords.x, centerCoords.y - 20),
+    k.anchor('center'),
   ])
 
   // Add buttons for choices
@@ -83,27 +65,21 @@ scene('love', (name) => {
     const yPos = centerCoords.y + 40 + index * buttonSpacing
 
     addButton(choice, (centerCoords.x, yPos), 'center', () => {
-      go('fortuneResult', { name, category: 'love', choice })
+      k.go('fortuneResult', { name, category: 'love', choice })
     })
   })
 })
 
-scene('fortune', (name) => {
-  const centerCoords = center()
-
-  add([
-    sprite('mark'),
-    pos(centerCoords.x, centerCoords.y - 100),
-    anchor('center'),
-  ])
+k.scene('fortune', (name) => {
+  const centerCoords = k.center()
 
   const questions = fortunes.categories.fortune.followUpQuestions
   const randomQuestion = questions[Math.floor(Math.random() * questions.length)]
 
-  add([
-    text(randomQuestion.question.replace('{NAME}', name.text)),
-    pos(centerCoords.x, centerCoords.y - 20),
-    anchor('center'),
+  k.add([
+    k.text(randomQuestion.question.replace('{NAME}', name.text)),
+    k.pos(centerCoords.x, centerCoords.y - 20),
+    k.anchor('center'),
   ])
 
   const buttonSpacing = 70
@@ -116,23 +92,16 @@ scene('fortune', (name) => {
   })
 })
 
-scene('guidance', (name) => {
-  loadCrew('sprite', 'bean')
-  const centerCoords = center()
-
-  add([
-    sprite('mark'),
-    pos(centerCoords.x, centerCoords.y - 100),
-    anchor('center'),
-  ])
+k.scene('guidance', (name) => {
+  const centerCoords = k.center()
 
   const questions = fortunes.categories.guidance.followUpQuestions
   const randomQuestion = questions[Math.floor(Math.random() * questions.length)]
 
-  add([
-    text(randomQuestion.question.replace('{NAME}', name.text)),
-    pos(centerCoords.x, centerCoords.y - 20),
-    anchor('center'),
+  k.add([
+    k.text(randomQuestion.question.replace('{NAME}', name.text)),
+    k.pos(centerCoords.x, centerCoords.y - 20),
+    k.anchor('center'),
   ])
 
   const buttonSpacing = 70
@@ -140,27 +109,27 @@ scene('guidance', (name) => {
     const yPos = centerCoords.y + 40 + index * buttonSpacing
 
     addButton(choice, (centerCoords.x, yPos), 'center', () => {
-      go('fortuneResult', { name, category: 'guidance', choice })
+      k.go('fortuneResult', { name, category: 'guidance', choice })
     })
   })
 })
 
-scene('surprise', (name) => {
-  const centerCoords = center()
+k.scene('surprise', (name) => {
+  const centerCoords = k.center()
 
-  add([
-    sprite('mark'),
-    pos(centerCoords.x, centerCoords.y - 100),
-    anchor('center'),
+  k.add([
+    k.sprite('mark'),
+    k.pos(centerCoords.x, centerCoords.y - 100),
+    k.anchor('center'),
   ])
 
   const questions = fortunes.categories.surprise.followUpQuestions
   const randomQuestion = questions[Math.floor(Math.random() * questions.length)]
 
-  add([
-    text(randomQuestion.question.replace('{NAME}', name.text)),
-    pos(centerCoords.x, centerCoords.y - 20),
-    anchor('center'),
+  k.add([
+    k.text(randomQuestion.question.replace('{NAME}', name.text)),
+    k.pos(centerCoords.x, centerCoords.y - 20),
+    k.anchor('center'),
   ])
 
   const buttonSpacing = 70
@@ -168,19 +137,18 @@ scene('surprise', (name) => {
     const yPos = centerCoords.y + 40 + index * buttonSpacing
 
     addButton(choice, (centerCoords.x, yPos), 'center', () => {
-      go('fortuneResult', { name, category: 'surprise', choice })
+      k.go('fortuneResult', { name, category: 'surprise', choice })
     })
   })
 })
 
-// Fortune result scene - displays the final fortune
-scene('fortuneResult', (data) => {
-  const centerCoords = center()
+k.scene('fortuneResult', (data) => {
+  const centerCoords = k.center()
 
   add([
-    sprite('mark'),
-    pos(centerCoords.x, centerCoords.y - 100),
-    anchor('center'),
+    k.sprite('mark'),
+    k.pos(centerCoords.x, centerCoords.y - 100),
+    k.anchor('center'),
   ])
 
   // Get the fortune for this category
@@ -195,11 +163,11 @@ scene('fortuneResult', (data) => {
     .replace('{NAME}', data.name.text)
     .replace('{ANSWER}', data.choice)
 
-  add([
-    text(fortuneText, {
+  k.add([
+    k.text(fortuneText, {
       width: 320,
     }),
-    pos(centerCoords.x, centerCoords.y),
-    anchor('center'),
+    k.pos(centerCoords.x, centerCoords.y),
+    k.anchor('center'),
   ])
 })
