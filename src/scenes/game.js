@@ -117,12 +117,6 @@ k.scene('guidance', (name) => {
 k.scene('surprise', (name) => {
   const centerCoords = k.center()
 
-  k.add([
-    k.sprite('mark'),
-    k.pos(centerCoords.x, centerCoords.y - 100),
-    k.anchor('center'),
-  ])
-
   const questions = fortunes.categories.surprise.followUpQuestions
   const randomQuestion = questions[Math.floor(Math.random() * questions.length)]
 
@@ -144,12 +138,6 @@ k.scene('surprise', (name) => {
 
 k.scene('fortuneResult', (data) => {
   const centerCoords = k.center()
-
-  add([
-    k.sprite('mark'),
-    k.pos(centerCoords.x, centerCoords.y - 100),
-    k.anchor('center'),
-  ])
 
   // Get the fortune for this category
   const categoryData = fortunes.categories[data.category]
